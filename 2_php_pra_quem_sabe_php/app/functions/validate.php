@@ -12,6 +12,7 @@
         case 's':
           $validate[$field] = filter_var($request[$field], FILTER_SANITIZE_STRING);
           
+          
           break;
         
         case 'i':
@@ -28,4 +29,20 @@
 
     return (object) $validate;
 
+  }
+
+  function isEmpty() {
+    
+    $request = request();
+
+    $empty = false;
+
+    foreach ($request as $key => $value) {
+
+      if (empty($request[$key])) {
+        $empty = true;
+      }
+    }
+
+    return $empty;
   }

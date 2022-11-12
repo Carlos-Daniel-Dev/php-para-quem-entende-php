@@ -1,6 +1,8 @@
 <h2>Contato</h2>
 
-<form action="/pages/forms/contato.php" method="GET" role="form">
+<?= get('message')?>
+
+<form action="/pages/forms/contato.php" method="POST" role="form">
 
     <div class="form-group">
         <label for="">Nome</label>

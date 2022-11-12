@@ -2,7 +2,12 @@
 
 require "../../../bootstrap.php";
 
-dd($_SERVER['REQUEST_METHOD']);
+ if(isEmpty()) {
+    flash('message','Preencha todos os campos', 'danger');
+
+    return redirect("contato");
+ }
+
 
   $validate = validate([
     'name' => 's',
@@ -12,5 +17,17 @@ dd($_SERVER['REQUEST_METHOD']);
 
   ]);
 
-  dd($validate->email);
+  $data = [
+
+    'quem' => $validate->email,
+    'para' => 'contato@devclass.com.br',
+    'mensagem' => $validate->message,
+    'assunto' => $validate->subject,
+  ];
+
+  if(send($data)) {
+    flash('message','Email enviado com sucesso', 'sucess');
+
+    return redirect("contato");
+  }
 

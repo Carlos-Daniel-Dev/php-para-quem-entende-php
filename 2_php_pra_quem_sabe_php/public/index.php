@@ -17,7 +17,9 @@
     try{
 
         require load();
-    }catch(Exception $e) {
+    }
+    
+    catch(Exception $e) {
 
         echo $e->getMessage();
 
