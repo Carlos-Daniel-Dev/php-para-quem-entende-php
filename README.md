@@ -1,4 +1,4 @@
-# javascript and php - deep learning
+# javascript and php
 
 ## Repository created to register my php and javascript studies
 
