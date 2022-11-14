@@ -17,14 +17,12 @@ require "../../../bootstrap.php";
 
   ]);
   $cadastro = create('users', $validate);
-  dd($cadastro);
 
-  // if($cadastrado) {
+  if($cadastro) {
+    flash('message', 'Cadastrado com sucesso', 'success');
 
-  //   flash('message', 'Cadastrado com sucesso', 'sucess');
+    return redirect('create_user');
+  }
 
-  //   return redirect('create_user');
-  // }
-
-  // flash('message', 'Erro ao cadastrar');
-  // return redirect('create_user');
+  flash('message', 'Erro ao cadastrar');
+  return redirect('create_user');

@@ -40,17 +40,57 @@
 
     return $list->fetchAll();
   }
-  function update() {
 
+  function update($table, $fields, $where) {
+    
+    if(!is_array($fields)) {
+      $fields = (array) $fields;
+    }
+
+    $pdo = connect();
+
+    $data = array_map(function($field) {
+
+      return "{$field} = :{$field}";
+    }, array_keys($fields));
+
+    $sql =  "update {$table} set ";
+
+    $sql = $sql . implode(',', $data);
+
+    $sql .= " where {$where[0]} = :{$where[0]}";
+
+    $data = array_merge($fields, [$where[0] => $where[1]]);
+    
+    $update = $pdo->prepare($sql);
+    $update->execute($data);
+    
+    return $update->rowCount();
 
   }
 
-  function find() {
+  function find($table,$field,$value) {
+    $pdo = connect();
 
+    $value = filter_var($value, FILTER_SANITIZE_STRING);
+
+    $sql = "select * from {$table} where {$field} = :{$field}";
+
+    $find = $pdo->prepare($sql);
+    $find->bindValue($field, $value);
+    $find->execute();
+
+    return $find->fetch();
 
   }
 
-  function delete() {
+  function delete($table, $field, $value) {
+    $pdo = connect();
+    $sql = "delete from {$table} where id={$value}";
+    
+    $delete = $pdo->prepare($sql);
+    $delete->bindValue($field,$value);
 
+    return $delete->execute();
 
   }

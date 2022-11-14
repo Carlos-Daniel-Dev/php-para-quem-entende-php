@@ -26,5 +26,5 @@ function redirect($target) {
 }
 
 function redirectToHome() {
-    return header("location:/");
+    return header("location: localhost:8888");
 }
